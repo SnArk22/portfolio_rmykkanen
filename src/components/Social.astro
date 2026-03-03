@@ -1,0 +1,18 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  platform: string;
+  username: string;
+}
+
+const { platform, username } = Astro.props;
+---
+
+<div class="flex gap-2 items-center">
+  <Icon name={`simple-icons:${platform}`} />
+  <a
+    href={`https://www.${platform}.com/${username}`}
+    class="hover:text-[#ED5007]">{platform}</a
+  >
+</div>
