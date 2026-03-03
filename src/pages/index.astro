@@ -1,11 +1,48 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import profile from "../assets/profile.webp";
+import { Image } from "astro:assets";
 ---
 
 <Layout>
-	<Welcome />
+  <main class="layout-base my-8 gap-8">
+    <div class="flex items-center gap-8 flex-wrap">
+      <Image
+        src={profile}
+        alt={"profile picture"}
+        class={"object-cover rounded-full w-[500px] aspect-square"}
+      />
+      <div class="flex flex-col gap-4">
+        <h1
+          class="font-(family-name:--font-oswald)
+        text-6xl
+        text-[#4A5759]
+        font-bold"
+        >
+          Ruby Mykkanen
+        </h1>
+        <h2 class="text-[#ED5007] text-4xl font-(family-name:--font-lato)">
+          Engineer, Student, Botanist, Musician
+        </h2>
+      </div>
+    </div>
+
+    <div
+      class="font-(family-name:--font-cutive-mono) text-[#2F3537] flex flex-col gap-4"
+    >
+      <p>
+        I am a freshman student at the Massachusetts Institute of Technology. I
+        plan to pursue a degree in Mechanical and Biological Engineering.
+      </p>
+      <p>My primary interests lie in:</p>
+      <ul class="pl-2">
+        <li>Bioprinting and tissue engineering</li>
+
+        <li>Designing scientific instruments for biological study</li>
+
+        <li>Genetic engineering of plants</li>
+      </ul>
+      <a href="/projects/" class="hover:text-[#ED5007]">see my stuff</a>
+    </div>
+  </main>
 </Layout>
