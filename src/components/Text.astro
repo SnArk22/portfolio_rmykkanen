@@ -1,0 +1,22 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+const variants = {
+  default: "text-foreground",
+  mainHeading:
+    "font-(family-name:--font-oswald) text-6xl text-primary font-bold mb-4",
+  majorHeading: "text-secondary text-4xl font-(family-name:--font-lato) mb-4",
+  subHeading: "text-primary text-2xl font-(family-name:--font-lato) mb-2",
+};
+
+interface Props extends HTMLAttributes<"h1"> {
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "address" | "span";
+  variant?: keyof typeof variants;
+}
+
+const { as: As = "p", variant = "default", ...attrs } = Astro.props;
+---
+
+<As class:list={variants[variant]} {...attrs}>
+  <slot />
+</As>
