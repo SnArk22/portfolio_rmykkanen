@@ -12,14 +12,30 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Image } from "astro:assets";
+
 import { getCollection } from "astro:content";
 
-const projects = await getCollection("projects");
+export const getStaticPaths = async () => {
+  const allProjects = await getCollection("projects");
+
+  const allTags = new Set(
+    allProjects.flatMap((project) => project.data.tags ?? []),
+  );
+
+  return [...allTags].map((tag) => {
+    const projects = allProjects.filter((project) =>
+      project.data.tags?.includes(tag),
+    );
+    return { params: { tag }, props: { projects } };
+  });
+};
 
 const allImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/projects/**/*.{webp,jpg,png}",
   { eager: true },
 );
+
+const { projects } = Astro.props;
 
 projects.forEach((project) => {
   if (!allImages[`/src/assets/projects/${project.id}/featured.webp`]) {
