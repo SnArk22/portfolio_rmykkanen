@@ -9,6 +9,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/netlify": "^6.6.4",
     "@data-slot/dialog": "^0.2.111",
     "@data-slot/tabs": "^0.2.107",
     "@iconify-json/simple-icons": "^1.2.72",
