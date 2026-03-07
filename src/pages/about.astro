@@ -29,7 +29,7 @@ import Text from "@/components/Text.astro";
       <p class="text-secondary">
         Read more about me below, or peruse my resume for more information
       </p>
-      <Button class={"w-40 bg-accent hover:bg-accent/80"}
+      <Button as="a" class={"w-48"} href={"RubyMykkanen_Resume.pdf"} download
         >Download Resume</Button
       >
     </div>
@@ -41,13 +41,19 @@ import Text from "@/components/Text.astro";
       class="mb-4 gap-y-2 gap-x-8 flex-wrap h-auto!"
       size={"lg"}
     >
-      <TabsTrigger value="interests">Academic Interests</TabsTrigger>
-      <TabsTrigger value="skills">Skills</TabsTrigger>
-      <TabsTrigger value="groups">Groups</TabsTrigger>
-      <TabsTrigger value="future">Future Plans</TabsTrigger>
+      <TabsTrigger value="interests" class="cursor-pointer"
+        >Academic Interests</TabsTrigger
+      >
+      <TabsTrigger value="skills" class="cursor-pointer">Skills</TabsTrigger>
+      <TabsTrigger value="groups" class="cursor-pointer">Groups</TabsTrigger>
+      <TabsTrigger value="future" class="cursor-pointer"
+        >Future Plans</TabsTrigger
+      >
     </TabsList>
     <TabsContent value="interests">
-      <Text as="h2" variant="majorHeading">Academic Interests</Text>
+      <Text as="h2" variant="majorHeading" class={"mb-4"}
+        >Academic Interests</Text
+      >
       <ul class="flex flex-col gap-4">
         <li>
           <Text as="h3" variant="subHeading">Bioprinting</Text>
@@ -82,7 +88,7 @@ import Text from "@/components/Text.astro";
       </ul>
     </TabsContent>
     <TabsContent value="skills">
-      <Text as="h2" variant="majorHeading">Skills</Text>
+      <Text as="h2" variant="majorHeading" class={"mb-4"}>Skills</Text>
       <ul class="flex flex-col gap-4">
         <li>
           <Text as="h3" variant="subHeading">Digital</Text>
@@ -126,7 +132,7 @@ import Text from "@/components/Text.astro";
       </ul>
     </TabsContent>
     <TabsContent value="groups">
-      <Text as="h2" variant="majorHeading">Groups</Text>
+      <Text as="h2" variant="majorHeading" class={"mb-4"}>Groups</Text>
 
       <ul class="flex flex-col gap-4">
         <li>
@@ -149,7 +155,7 @@ import Text from "@/components/Text.astro";
       </ul>
     </TabsContent>
     <TabsContent value="future">
-      <Text as="h2" variant="majorHeading">Future Plans</Text>
+      <Text as="h2" variant="majorHeading" class={"mb-4"}>Future Plans</Text>
       <p>
         In the future I hope to gain research experience in bioprinting and
         tissue engineering, as well as internships in biotech companies. I also
