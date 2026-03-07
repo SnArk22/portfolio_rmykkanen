@@ -12,12 +12,22 @@ const SubscribeSchema = z.object({
   ),
 });
 
+const MessageSchema = z.object({
+  name: z.preprocess(
+    (value) => (value === null ? "" : value),
+    z.string().trim().min(2, "Name must be at least 2 characters."),
+  ),
+  email: z.preprocess(
+    (value) => (value === null ? "" : value),
+    z.string().trim().email("Please enter a valid email address."),
+  ),
+  message: z.preprocess(
+    (value) => (value === null ? "" : value),
+    z.string().trim().min(2, "Message must be at least 2 characters."),
+  ),
+});
+
 export const server = {
-  hello: defineAction({
-    handler: () => {
-      console.log("hello!");
-    },
-  }),
   subscribe: defineAction({
     accept: "form",
     input: SubscribeSchema,
@@ -27,12 +37,12 @@ export const server = {
       };
     },
   }),
-  subscribeClient: defineAction({
+  sendMessage: defineAction({
     accept: "form",
-    input: SubscribeSchema,
+    input: MessageSchema,
     handler: async (input) => {
       return {
-        message: `Thank you, ${input.name} for subscribing!`,
+        message: `Thank you, ${input.name} for sending a message!`,
       };
     },
   }),
