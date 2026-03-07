@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/*@import "./ruby-theme.css";*/
-@import "./shadcn-theme.css";
+@import "./theme.css";
 
 @theme {
   --spacing: 0.25rem /* 4px */;
