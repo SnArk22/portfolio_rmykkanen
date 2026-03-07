@@ -1,14 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Text from "@/components/Text.astro";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-  CardMedia,
-} from "@/components/ui/card";
+import Card from "@/components/Card.astro";
 import { Badge } from "@/components/ui/badge";
 import { Image } from "astro:assets";
 
@@ -76,40 +69,7 @@ newsletters.forEach((newsletter) => {
 
         <div class="grid md:grid-cols-2 gap-8">
           {projects.map((project) => (
-            <Card class:list={"w-full gap-4 py-4"}>
-              <CardHeader class="px-4">
-                <CardTitle>
-                  <Text
-                    as="a"
-                    variant="majorHeading"
-                    href={`/projects/${project.id}`}
-                  >
-                    {project.data.title}
-                  </Text>
-                </CardTitle>
-              </CardHeader>
-              <CardContent class="flex gap-4 flex-col md:flex-row px-4">
-                <CardMedia class="sm:flex-1">
-                  <Image
-                    src={
-                      allImages[
-                        `/src/assets/projects/${project.id}/featured.webp`
-                      ].default
-                    }
-                    alt="project image"
-                  />
-                </CardMedia>
-                <Text class={"flex-2"}>{project.data.description}</Text>
-              </CardContent>
-              <CardFooter class="flex gap-4 justify-start">
-                {project.data.tags &&
-                  project.data.tags.map((tag) => (
-                    <Badge>
-                      <a href={`/tag/${tag}`}>{tag}</a>
-                    </Badge>
-                  ))}
-              </CardFooter>
-            </Card>
+            <Card item={project} variant="grid" />
           ))}
         </div>
       </div>
@@ -127,39 +87,7 @@ newsletters.forEach((newsletter) => {
 
         <div class="grid md:grid-cols-2 gap-8">
           {newsletters.map((newsletter) => (
-            <Card class:list={"w-full gap-4 py-4"}>
-              <CardHeader class="px-4">
-                <CardTitle>
-                  <Text
-                    as="a"
-                    variant="majorHeading"
-                    href={`/newsletters/${newsletter.id}`}
-                  >
-                    {newsletter.data.title}
-                  </Text>
-                </CardTitle>
-              </CardHeader>
-              <CardContent class="flex gap-4 flex-col md:flex-row px-4">
-                <CardMedia class="sm:flex-1">
-                  <Image
-                    src={
-                      allImages[
-                        `/src/assets/newsletters/${newsletter.id}/featured.webp`
-                      ].default
-                    }
-                    alt="project image"
-                  />
-                </CardMedia>
-              </CardContent>
-              <CardFooter class="flex gap-4 justify-start">
-                {newsletter.data.tags &&
-                  newsletter.data.tags.map((tag) => (
-                    <Badge>
-                      <a href={`/tag/${tag}`}>{tag}</a>
-                    </Badge>
-                  ))}
-              </CardFooter>
-            </Card>
+            <Card item={newsletter} variant="grid" />
           ))}
         </div>
       </div>

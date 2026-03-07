@@ -1,0 +1,134 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import {
+  Card as CardRoot,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+  CardMedia,
+  CardDescription,
+} from "@/components/ui/card";
+import Text from "@/components/Text.astro";
+import { Image } from "astro:assets";
+import { Badge } from "@/components/ui/badge";
+
+interface Props {
+  item: CollectionEntry<"projects"> | CollectionEntry<"newsletters">;
+  variant: "single" | "grid";
+}
+
+const { item, variant } = Astro.props;
+
+let allImages;
+
+switch (item.collection) {
+  case "projects":
+    allImages = import.meta.glob<{ default: ImageMetadata }>(
+      `/src/assets/projects/**/*.{webp,jpg,png}`,
+      { eager: true },
+    );
+    break;
+  case "newsletters":
+    allImages = import.meta.glob<{ default: ImageMetadata }>(
+      `/src/assets/newsletters/**/*.{webp,jpg,png}`,
+      { eager: true },
+    );
+    break;
+}
+
+// Check for featured image
+if (!allImages[`/src/assets/${item.collection}/${item.id}/featured.webp`]) {
+  throw new Error(
+    `No featured image found for ${item.collection} ${item.id}. Add a an image titled 'featured.webp' to folder '/src/assets/${item.collection}/${item.id}/'`,
+  );
+}
+---
+
+<CardRoot
+  class:list={[
+    "w-full gap-4 p-8 grid md:grid-cols-6 ",
+    variant === "grid" &&
+      "relative group hover:bg-muted/20 hover:-translate-y-1 transition",
+  ]}
+>
+  <CardHeader
+    class:list={[
+      "p-0 gap-4",
+      variant === "grid" && "md:col-span-6",
+      variant === "single" && "md:col-start-4 md:col-span-3",
+    ]}
+  >
+    <CardTitle>
+      {
+        variant === "grid" ? (
+          <Text
+            as="a"
+            variant="majorHeading"
+            href={`/${item.collection}/${item.id}`}
+            class={"before:absolute before:inset-0"}
+          >
+            {item.data.title}
+          </Text>
+        ) : (
+          <Text as="h2" variant="majorHeading">
+            {item.data.title}
+          </Text>
+        )
+      }
+    </CardTitle>
+    <CardDescription class:list={"flex gap-4 justify-start"}>
+      {
+        item.data.tags &&
+          item.data.tags.map((tag) => (
+            <Badge class={"lg:hover:-translate-y-0.5 transition"}>
+              <a href={`/tag/${tag}`} class="relative">
+                {tag}
+              </a>
+            </Badge>
+          ))
+      }
+    </CardDescription>
+  </CardHeader>
+
+  <CardMedia
+    class:list={[
+      variant === "grid" && "md:col-start-1 md:col-span-2",
+      variant === "single" &&
+        "md:col-start-1 md:col-span-3 md:row-start-1 md:row-span-2",
+      item.collection === "newsletters" && "md:col-span-6 md:row-span-1",
+    ]}
+  >
+    <Image
+      src={allImages[`/src/assets/${item.collection}/${item.id}/featured.webp`]
+        .default}
+      alt="featured image"
+    />
+  </CardMedia>
+
+  <CardContent
+    class:list={[
+      "p-0 flex flex-col gap-2",
+      variant === "grid" && "md:col-start-3 md:row-start-2 md:col-span-4",
+      variant === "single" && "md:col-span-3 md:col-start-4",
+    ]}
+  >
+    {
+      item.collection === "projects" && (
+        <>
+          <Text>{item.data.description}</Text>
+          {variant === "single" && (
+            <>
+              <Text>{`Creator: ${item.data.creator}`}</Text>
+              <Text>{`Creator: ${item.data.collaborators ?? "none"}`}</Text>
+              {item.data.completed && (
+                <Text>{`Project Completed on ${item.data.completed}`}</Text>
+              )}
+            </>
+          )}
+        </>
+      )
+    }
+  </CardContent>
+</CardRoot>

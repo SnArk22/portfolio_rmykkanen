@@ -14,13 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
+  Card as CardRoot,
   CardContent,
   CardFooter,
   CardHeader,
   CardMedia,
   CardTitle,
 } from "@/components/ui/card";
+import Card from "@/components/Card.astro";
 import { getCollection } from "astro:content";
 import { Badge } from "@/components/ui/badge";
 import { Image } from "astro:assets";
@@ -46,7 +47,7 @@ newsletters.forEach((newsletter) => {
   <Text>
     Here's where I post a monthly in-depth update on what I've been up to!
   </Text>
-  <Card class="p-8">
+  <CardRoot class="p-8">
     <form id="client-action-form" class="w-full" novalidate>
       <FieldSet>
         <FieldLegend class={"mb-4"}
@@ -92,14 +93,18 @@ newsletters.forEach((newsletter) => {
           </div>
 
           <div class="flex gap-4">
-            <Button type="submit" class="w-fit" data-submit-button>
+            <Button
+              type="submit"
+              class="w-fit hover:-translate-y-0.5 transition"
+              data-submit-button
+            >
               <Spinner data-icon class="hidden" />
               <span data-submit-label>Subscribe</span>
             </Button>
             <Button
               type="reset"
               variant="outline"
-              class="w-fit"
+              class="w-fit hover:-translate-y-0.5 transition"
               data-reset-button
             >
               Reset
@@ -108,46 +113,10 @@ newsletters.forEach((newsletter) => {
         </FieldGroup>
       </FieldSet>
     </form>
-  </Card>
+  </CardRoot>
 
   <div class="grid lg:grid-cols-2 gap-8">
-    {
-      newsletters.map((newsletter) => (
-        <Card class:list={"w-full gap-4 p-4"}>
-          <CardHeader class="px-4">
-            <CardTitle>
-              <Text
-                as="a"
-                variant="majorHeading"
-                href={`/newsletters/${newsletter.id}`}
-              >
-                {newsletter.data.title}
-              </Text>
-            </CardTitle>
-          </CardHeader>
-          <CardContent class="px-4">
-            <CardMedia class="aspect-square bg-cover">
-              <Image
-                src={
-                  allImages[
-                    `/src/assets/newsletters/${newsletter.id}/featured.webp`
-                  ].default
-                }
-                alt="Electronics project"
-              />
-            </CardMedia>
-          </CardContent>
-          <CardFooter class="flex gap-4 justify-start px-4">
-            {newsletter.data.tags &&
-              newsletter.data.tags.map((tag) => (
-                <Badge>
-                  <a href={`/tag/${tag}`}>{tag}</a>
-                </Badge>
-              ))}
-          </CardFooter>
-        </Card>
-      ))
-    }
+    {newsletters.map((newsletter) => <Card item={newsletter} variant="grid" />)}
   </div>
 </Layout>
 

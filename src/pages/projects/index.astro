@@ -1,73 +1,15 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Text from "@/components/Text.astro";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-  CardMedia,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Image } from "astro:assets";
+import Card from "@/components/Card.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
-
-const allImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/projects/**/*.{webp,jpg,png}",
-  { eager: true },
-);
-
-projects.forEach((project) => {
-  if (!allImages[`/src/assets/projects/${project.id}/featured.webp`]) {
-    throw new Error(
-      `No featured image found for project ${project.id}. Add a an image titled 'featured.webp' to folder '/src/assets/projects/${project.id}/'`,
-    );
-  }
-});
 ---
 
 <Layout>
   <Text as="h1" variant="mainHeading">Projects</Text>
-  <div class="grid md:grid-cols-2 gap-8">
-    {
-      projects.map((project) => (
-        <Card class:list={"w-full gap-4 py-4"}>
-          <CardHeader class="px-4">
-            <CardTitle>
-              <Text
-                as="a"
-                variant="majorHeading"
-                href={`/projects/${project.id}`}
-              >
-                {project.data.title}
-              </Text>
-            </CardTitle>
-          </CardHeader>
-          <CardContent class="flex gap-4 flex-col md:flex-row px-4">
-            <CardMedia class="sm:flex-1">
-              <Image
-                src={
-                  allImages[`/src/assets/projects/${project.id}/featured.webp`]
-                    .default
-                }
-                alt="Electronics project"
-              />
-            </CardMedia>
-            <Text class={"flex-2"}>{project.data.description}</Text>
-          </CardContent>
-          <CardFooter class="flex gap-4 justify-start">
-            {project.data.tags &&
-              project.data.tags.map((tag) => (
-                <Badge>
-                  <a href={`/tag/${tag}`}>{tag}</a>
-                </Badge>
-              ))}
-          </CardFooter>
-        </Card>
-      ))
-    }
+  <div class="grid lg:grid-cols-2 gap-8">
+    {projects.map((project) => <Card item={project} variant="grid" />)}
   </div>
 </Layout>
