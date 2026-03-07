@@ -87,14 +87,18 @@ import { Textarea } from "@/components/ui/textarea";
           </Field>
 
           <div class="flex gap-4">
-            <Button type="submit" class="w-fit" data-submit-button>
+            <Button
+              type="submit"
+              class="w-fit hover:-translate-y-0.5 transition"
+              data-submit-button
+            >
               <Spinner data-icon class="hidden" />
               <span data-submit-label>Send Message</span>
             </Button>
             <Button
               type="reset"
               variant="outline"
-              class="w-fit"
+              class="w-fit hover:-translate-y-0.5 transition"
               data-reset-button
             >
               Reset

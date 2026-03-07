@@ -7,7 +7,7 @@ import Button from "../components/ui/button/Button.astro";
   <nav class="py-4 md:items-center flex justify-between">
     <a
       href="/"
-      class="font-(family-name:--font-lato) text-2xl font-bold text-primary flex gap-2 items-center"
+      class="font-(family-name:--font-lato) text-2xl font-bold text-primary flex gap-2 items-center hover:-translate-y-0.5 transition"
     >
       <!-- Set different color with color={'var(--***)'} -->
       <Logo width={30} height={30} />
@@ -23,19 +23,43 @@ import Button from "../components/ui/button/Button.astro";
       class="flex flex-col sm:flex-row uppercase peer-not-checked:hidden lg:peer-not-checked:flex animate-in fade-in duration-500 gap-2"
     >
       <li>
-        <Button variant={"ghost"} as="a" href={"/"}>Home</Button>
-      </li>
-      <li><Button variant={"ghost"} as="a" href={"/about"}>About</Button></li>
-      <li>
-        <Button variant={"ghost"} as="a" href={"/projects"}>Projects</Button>
-      </li>
-      <li>
-        <Button variant={"ghost"} as="a" href={"/newsletters"}
-          >Newsletter</Button
+        <Button
+          variant={"ghost"}
+          as="a"
+          href={"/"}
+          class={"lg:hover:-translate-y-0.5 transition"}>Home</Button
         >
       </li>
       <li>
-        <Button variant={"ghost"} as="a" href={"/contact"}>Contact</Button>
+        <Button
+          variant={"ghost"}
+          as="a"
+          href={"/about"}
+          class={"lg:hover:-translate-y-0.5 transition"}>About</Button>
+      </li>
+      <li>
+        <Button
+          variant={"ghost"}
+          as="a"
+          href={"/projects"}
+          class={"lg:hover:-translate-y-0.5 transition"}>Projects</Button
+        >
+      </li>
+      <li>
+        <Button
+          variant={"ghost"}
+          as="a"
+          href={"/newsletters"}
+          class={"lg:hover:-translate-y-0.5 transition"}>Newsletter</Button
+        >
+      </li>
+      <li>
+        <Button
+          variant={"ghost"}
+          as="a"
+          href={"/contact"}
+          class={"lg:hover:-translate-y-0.5 transition"}>Contact</Button
+        >
       </li>
     </ul>
   </nav>

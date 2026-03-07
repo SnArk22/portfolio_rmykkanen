@@ -14,6 +14,7 @@ const { platform, username } = Astro.props;
   variant={"ghost"}
   as="a"
   href={`https://www.${platform}.com/${username}`}
+  class={"hover:-translate-y-0.5 transition"}
 >
   <Icon name={`simple-icons:${platform}`} />
   {platform}
