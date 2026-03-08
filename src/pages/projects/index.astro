@@ -3,13 +3,15 @@ import Layout from "@/layouts/Layout.astro";
 import Text from "@/components/Text.astro";
 import Card from "@/components/Card.astro";
 import { getCollection } from "astro:content";
+import TagCloud from "@/components/TagCloud.astro";
 
 const projects = await getCollection("projects");
 ---
 
 <Layout>
   <Text as="h1" variant="mainHeading">Projects</Text>
-  <div class="grid lg:grid-cols-2 gap-8">
+  <TagCloud tags={["Art", "Electronics"]} />
+  <!-- <div class="grid lg:grid-cols-2 gap-8">
     {projects.map((project) => <Card item={project} variant="grid" />)}
-  </div>
+  </div> -->
 </Layout>
