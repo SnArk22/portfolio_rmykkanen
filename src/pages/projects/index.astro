@@ -6,11 +6,16 @@ import { getCollection } from "astro:content";
 import TagCloud from "@/components/TagCloud.astro";
 
 const projects = await getCollection("projects");
+
+const allTags = new Set(projects.flatMap((project) => project.data.tags ?? []));
 ---
 
 <Layout>
   <Text as="h1" variant="mainHeading">Projects</Text>
-  <TagCloud tags={["Art", "Electronics"]} />
+  <Text as="h2" variant="majorHeading"
+    >Select a cateogory to view projects in that category</Text
+  >
+  <TagCloud tags={[...allTags]} />
   <!-- <div class="grid lg:grid-cols-2 gap-8">
     {projects.map((project) => <Card item={project} variant="grid" />)}
   </div> -->
