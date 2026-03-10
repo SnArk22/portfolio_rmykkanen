@@ -81,6 +81,7 @@ if (!allImages[`/src/assets/${item.collection}/${item.id}/featured.webp`]) {
     <CardDescription class:list={"flex gap-4 justify-start"}>
       {
         item.data.tags &&
+          variant === "single" &&
           item.data.tags.map((tag) => (
             <Badge class={"lg:hover:-translate-y-0.5 transition"}>
               <a href={`/tag/${tag}`} class="relative">
